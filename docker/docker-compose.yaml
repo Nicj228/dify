@@ -754,7 +754,6 @@ services:
       - web
     ports:
       - 4100
-      - 443
 
   # The Weaviate vector store.
   weaviate:
