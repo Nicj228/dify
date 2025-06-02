@@ -524,6 +524,7 @@ services:
       # Mount the storage directory to the container, for storing user files.
       - ./volumes/app/storage:/app/api/storage
     networks:
+      - dokploy-network
       - ssrf_proxy_network
       - default
 
@@ -551,6 +552,7 @@ services:
       # Mount the storage directory to the container, for storing user files.
       - ./volumes/app/storage:/app/api/storage
     networks:
+      - dokploy-network
       - ssrf_proxy_network
       - default
 
@@ -637,6 +639,7 @@ services:
     healthcheck:
       test: [ 'CMD', 'curl', '-f', 'http://localhost:8194/health' ]
     networks:
+      - dokploy-network
       - ssrf_proxy_network
 
   # plugin daemon
@@ -709,6 +712,7 @@ services:
       SANDBOX_HOST: ${SSRF_SANDBOX_HOST:-sandbox}
       SANDBOX_PORT: ${SANDBOX_PORT:-8194}
     networks:
+      - dokploy-network
       - ssrf_proxy_network
       - default
 
@@ -981,6 +985,7 @@ services:
       timeout: 20s
       retries: 3
     networks:
+      - dokploy-network
       - milvus
 
   minio:
@@ -1000,6 +1005,7 @@ services:
       timeout: 20s
       retries: 3
     networks:
+      - dokploy-network
       - milvus
 
   milvus-standalone:
@@ -1027,6 +1033,7 @@ services:
       - 19530:19530
       - 9091:9091
     networks:
+      - dokploy-network
       - milvus
 
   # Opensearch vector database
@@ -1050,6 +1057,7 @@ services:
     volumes:
       - ./volumes/opensearch/data:/usr/share/opensearch/data
     networks:
+      - dokploy-network
       - opensearch-net
 
   opensearch-dashboards:
@@ -1062,6 +1070,7 @@ services:
     volumes:
       - ./volumes/opensearch/opensearch_dashboards.yml:/usr/share/opensearch-dashboards/config/opensearch_dashboards.yml
     networks:
+      - dokploy-network
       - opensearch-net
     depends_on:
       - opensearch
@@ -1177,6 +1186,8 @@ services:
       - ./volumes/unstructured:/app/data
 
 networks:
+  dokploy-network:
+    external: true
   # create a network between sandbox, api and ssrf_proxy, and can not access outside.
   ssrf_proxy_network:
     driver: bridge
