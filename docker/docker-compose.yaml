@@ -864,6 +864,8 @@ services:
       retries: 10
       start_period: 30s
       timeout: 10s
+    networks:
+      - dokploy-network
 
   # The pgvector vector database.
   pgvector:
@@ -891,6 +893,8 @@ services:
       interval: 1s
       timeout: 3s
       retries: 30
+    networks:
+      - dokploy-network
 
   # get image from https://www.vastdata.com.cn/
   vastbase:
@@ -915,6 +919,8 @@ services:
       interval: 1s
       timeout: 3s
       retries: 30
+    networks:
+      - dokploy-network
 
   # pgvecto-rs vector store
   pgvecto-rs:
@@ -937,6 +943,8 @@ services:
       interval: 1s
       timeout: 3s
       retries: 30
+    networks:
+      - dokploy-network
 
   # Chroma vector database
   chroma:
@@ -969,6 +977,8 @@ services:
       OB_CLUSTER_NAME: ${OCEANBASE_CLUSTER_NAME:-difyai}
       OB_SERVER_IP: 127.0.0.1
       MODE: mini
+    networks:
+      - dokploy-network
 
   # Oracle vector database
   oracle:
@@ -984,6 +994,8 @@ services:
     environment:
       ORACLE_PWD: ${ORACLE_PWD:-Dify123456}
       ORACLE_CHARACTERSET: ${ORACLE_CHARACTERSET:-AL32UTF8}
+    networks:
+      - dokploy-network
 
   # Milvus vector database services
   etcd:
@@ -1116,6 +1128,8 @@ services:
       retries: 10
     ports:
       - ${OPENGAUSS_PORT:-6600}:${OPENGAUSS_PORT:-6600}
+    networks:
+      - dokploy-network
 
   # MyScale vector database
   myscale:
@@ -1131,6 +1145,8 @@ services:
       - ./volumes/myscale/config/users.d/custom_users_config.xml:/etc/clickhouse-server/users.d/custom_users_config.xml
     ports:
       - ${MYSCALE_PORT:-8123}:${MYSCALE_PORT:-8123}
+    networks:
+      - dokploy-network
 
   # https://www.elastic.co/guide/en/elasticsearch/reference/current/settings.html
   # https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html#docker-prod-prerequisites
@@ -1166,6 +1182,8 @@ services:
       interval: 30s
       timeout: 10s
       retries: 50
+    networks:
+      - dokploy-network
 
   # https://www.elastic.co/guide/en/kibana/current/docker.html
   # https://www.elastic.co/guide/en/kibana/current/settings.html
@@ -1194,7 +1212,9 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
-
+    networks:
+      - dokploy-network
+      
   # unstructured .
   # (if used, you need to set ETL_TYPE to Unstructured in the api & worker service.)
   unstructured:
